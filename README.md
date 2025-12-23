@@ -1,73 +1,38 @@
-# React + TypeScript + Vite
+# 🕸️ Goth Soul. Kawaii Heart. Clean Code. ✨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o meu portfólio pessoal — um espaço onde a precisão da **Bioinformática** se encontra com a narrativa do **Storytelling**. O projeto foi construído com uma arquitetura modular, refletindo minha transição de carreira e a dualidade da minha estética: o rigor técnico do **Modo Goth** e a criatividade vibrante do **Modo Kawaii**.
 
-Currently, two official plugins are available:
+[Acesse o Projeto Aqui (Link da Vercel/Netlify se tiver)]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🌓 A Dualidade (O Botão "ON")
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O grande diferencial deste portfólio é a troca de tema dinâmica. Não é apenas um "Dark Mode", é uma mudança de personalidade:
 
-## Expanding the ESLint configuration
+- **Modo Goth (Default):** Inspirado na estética sombria, focado em minimalismo, contraste e seriedade técnica.
+- **Modo Kawaii (Toggle ON):** Uma explosão de cores, filtros holográficos e estilo "foto adesivo" (Sticker Style), celebrando o lado lúdico e criativo do desenvolvimento.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🧠 Minha Jornada (Storytelling)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Meu background não é linear, e é isso que me torna única:
+- **Ciência & Dados:** Experiência com Iniciação Científica e Bioinformática (DNA/Dados).
+- **Educação & Arte:** Atuação no Planetário e na Árvore da Vida, onde aprendi a transformar conceitos complexos em histórias acessíveis.
+- **Hoje:** Arquiteta de Dados em formação, focada em transformar o caos em código elegante e funcional.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Tecnologias & Arquitetura
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+O projeto utiliza o que há de mais moderno no ecossistema React:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **React + TypeScript:** Tipagem forte para um código resiliente.
+- **Tailwind CSS:** Estilização customizada com modificadores de tema (`kawaii:`).
+- **Lucide React:** Ícones dinâmicos que mudam conforme o tema.
+- **Arquitetura Modular:** Componentes e Hooks separados (`useTypewriter`, `useEasterEgg`, `HeroCard`) para fácil manutenção.
+- **SVG Filters:** Filtros customizados para criar o efeito de borda de adesivo em tempo real.
+
+
+
