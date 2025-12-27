@@ -17,7 +17,9 @@ export const HeroText = ({ typedText }: HeroTextProps) => {
 
       {/* Main Title */}
       <div>
-        <h1 className="text-7xl md:text-9xl kawaii:md:text-7xl leading-none transition-all duration-500 font-metal kawaii:font-cute kawaii:tracking-tighter">
+        <h1 className="text-7xl md:text-9xl kawaii:md:text-7xl leading-none transition-all duration-500 font-bold mb-4 kawaii:tracking-tighter"
+      style={{ fontFamily: 'var(--font-titulo-zao)' }} 
+      >
           <span className="text-text-primary drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)] kawaii:drop-shadow-sm kawaii:text-accent">
             Maria <br /> Rodrigues
           </span>
@@ -25,7 +27,7 @@ export const HeroText = ({ typedText }: HeroTextProps) => {
       </div>
 
       {/* Description */}
-      <div className="border-l-4 border-accent/70 pl-6 py-2 text-text-muted text-base md:text-lg font-code transition-colors duration-500 italic relative">
+      <div className="border-l-4 border-accent/70 pl-6 py-2 text-text-secondary text-base md:text-lg font-code transition-colors duration-500 italic relative">
         <p>Troquei o microscópio pelo VS Code, mas continuo caçando bugs. 🐛💻</p>
       </div>
 

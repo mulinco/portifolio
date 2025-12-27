@@ -59,7 +59,7 @@ export const PetSlider = () => {
   return (
     <section className="py-12 relative">
       {/* Título */}
-      <h2 className="text-center font-heading text-4xl mb-10 text-accent transition-all">
+      <h2 className="text-center font-display text-4xl mb-10 text-accent transition-all">
         Meus Assistentes
       </h2>
 
@@ -84,7 +84,7 @@ export const PetSlider = () => {
 
               {/* Textos Resumidos */}
               <div className="text-center">
-                <h3 className="font-heading text-2xl text-text-primary mb-1">
+                <h3 className="font-bold text-2xl text-text-primary mb-1">
                   {pet.name}
                 </h3>
                 <p className="font-body text-sm text-text-secondary uppercase tracking-widest">

@@ -19,9 +19,12 @@
     --scroll-thumb: #520815;
 
     /* VARIÁVEIS DE FONTE GOTH */
-    --font-heading: 'UnifrakturMaguntia', serif;
+    --font-heading: 'Inter', serif;
     --font-body: 'Inter', sans-serif;
     --font-code: 'Fira Code', monospace;
+    --font-special: 'UnifrakturMaguntia', cursive;
+    --font-titulo-zao: 'UnifrakturMaguntia', cursive;
+    --font-display: 'UnifrakturMaguntia', cursive;
   }
 
   /* --- MODO KAWAII (PALETA MAKEUP / ROSE GOLD) --- */
@@ -51,6 +54,9 @@
     --font-heading: 'Mochiy Pop One', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-code: 'Space Mono', monospace;
+    --font-hero: 'Mochiy Pop One', sans-serif;
+    --font-titulo-zao: 'Mochiy Pop One', sans-serif;
+    --font-display: 'Mochiy Pop One', sans-serif;
   }
 
   /* 3. Aplicando estilos no corpo do site */

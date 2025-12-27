@@ -93,7 +93,7 @@ Este projeto é um organismo vivo! 🧬 Embora a versão atual foque em Frontend
 ---
 
 ## 🧜‍♀️ A Autora
-### Desenvolvido com 💜 (e muito café) por Maria Clara Rodrigues.
+### Desenvolvido com 💜 (e muita coca-cola) por Maria Clara Rodrigues.
 
 - **Foco:** Desenvolvimento Full Stack & Análise de Dados.
 

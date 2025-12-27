@@ -38,7 +38,7 @@ export const Footer = () => {
           {/* COLUNA 1: Identidade */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-3xl font-bold font-heading text-text-primary mb-2">
+              <h2 className="text-3xl font-bold font-display text-text-primary mb-2">
                 mulinco<span className="text-accent">.dev</span>
               </h2>
               <p className="text-text-secondary font-sans text-sm leading-relaxed max-w-xs">
@@ -59,7 +59,7 @@ export const Footer = () => {
 
           {/* COLUNA 2: Navegação */}
           <div className="md:pl-10">
-            <h3 className="text-lg font-bold font-heading text-text-primary mb-6 flex items-center gap-2">
+            <h3 className="text-lg font-bold font-display text-text-primary mb-6 flex items-center gap-2">
               Explorar
             </h3>
             <ul className="space-y-3 font-code text-sm text-text-secondary">
@@ -71,7 +71,7 @@ export const Footer = () => {
 
           {/* COLUNA 3: Contato (Interativo) */}
           <div>
-            <h3 className="text-lg font-bold font-heading text-text-primary mb-6">
+            <h3 className="text-lg font-bold font-display text-text-primary mb-6">
               Conectar
             </h3>
             

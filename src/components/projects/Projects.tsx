@@ -68,7 +68,7 @@ export const Projects = () => {
       
       {/* Cabeçalho da Seção */}
       <div className="text-center mb-16 space-y-4">
-        <h2 className="text-4xl md:text-5xl font-heading text-accent animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <h2 className="text-4xl md:text-5xl font-display text-accent animate-in fade-in slide-in-from-bottom-4 duration-700">
           Projetos Selecionados
         </h2>
         <p className="text-text-secondary font-code max-w-2xl mx-auto">
@@ -128,7 +128,7 @@ export const Projects = () => {
             {/* Tags (Preview) */}
             <div className="flex flex-wrap gap-2 mt-auto">
               {project.techs.slice(0, 3).map((tech, i) => (
-                <span key={i} className="text-xs font-code text-accent/80 bg-accent/5 px-2 py-1 rounded border border-transparent group-hover:border-accent/20">
+                <span key={i} className="text-xs font-code text-accent font-bold bg-accent/5 px-2 py-1 rounded border border-transparent group-hover:border-accent/20">
                   {tech}
                 </span>
               ))}
