@@ -89,7 +89,7 @@ export const About = () => {
       
       {/* Background Decorativo */}
       <div className="absolute top-10 left-0 w-full overflow-hidden leading-none select-none opacity-[0.03] kawaii:opacity-[0.05] pointer-events-none">
-        <span className="text-[15rem] md:text-[20rem] font-black font-metal kawaii:font-cute kawaii:tracking-tighter text-text-primary whitespace-nowrap uppercase">
+        <span className="text-[15rem] md:text-[20rem] font-black font-display kawaii:font-cute kawaii:tracking-tighter text-text-primary whitespace-nowrap uppercase">
            <span className="kawaii:hidden">DEVELOPER</span>
            <span className="hidden kawaii:inline">CREATIVE</span>
         </span>
@@ -102,7 +102,7 @@ export const About = () => {
           {/* Lado Esquerdo: Texto + CV CARD */}
           <div className="space-y-8">
             <div className="space-y-6">
-                <h2 className="text-4xl md:text-5xl font-metal kawaii:font-cute text-accent transition-colors duration-500">
+                <h2 className="text-4xl md:text-5xl font-display kawaii:font-cute text-accent transition-colors duration-500">
                   Quem sou eu?
                 </h2>
                 
