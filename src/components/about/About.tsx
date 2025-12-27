@@ -116,7 +116,7 @@ export const About = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 border-l-4 border-accent pl-4 italic text-text-muted font-metal kawaii:font-cute text-xl transition-colors duration-500">
+                <div className="pt-4 border-l-4 border-accent pl-4 italic text-text-secondary font-bold kawaii:font-cute text-xl transition-colors duration-500">
                   "Dark Mode por padrão. Kawaii por escolha."
                 </div>
             </div>
