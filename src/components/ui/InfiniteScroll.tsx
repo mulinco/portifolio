@@ -1,5 +1,6 @@
 import { ReactNode, useMemo } from 'react';
 
+
 interface InfiniteScrollProps {
   items: ReactNode[];
   speed?: 'slow' | 'normal' | 'fast';
@@ -14,14 +15,23 @@ export default function InfiniteScroll({
   className = '' 
 }: InfiniteScrollProps) {
   
+  // ✅ CORREÇÃO: Escrevemos as classes por extenso para o Tailwind ler
   const getAnimationClass = () => {
-    const speedSuffix = speed === 'normal' ? '' : `-${speed}`;
-    return `animate-scroll-${direction}${speedSuffix}`;
+    // Mapeia todas as combinações possíveis
+    const animationMap = {
+      'left-normal': 'animate-scroll-left',
+      'left-fast': 'animate-scroll-left-fast',
+      'left-slow': 'animate-scroll-left-slow',
+      'right-normal': 'animate-scroll-right',
+      'right-fast': 'animate-scroll-right-fast',
+      'right-slow': 'animate-scroll-right-slow',
+    };
+
+    const key = `${direction}-${speed}` as keyof typeof animationMap;
+    return animationMap[key] || 'animate-scroll-left';
   };
 
-  // ✅ TRUQUE: Repetimos a lista 4 VEZES.
-  // Isso garante que a fita seja longa o suficiente para cobrir qualquer tela
-  // antes da animação reiniciar.
+  // Mantemos o truque de quadruplicar a lista para telas grandes
   const multipliedItems = useMemo(() => {
     return [...items, ...items, ...items, ...items];
   }, [items]);
@@ -35,7 +45,6 @@ export default function InfiniteScroll({
       {/* A Faixa que corre */}
       <div className={`flex gap-8 py-4 whitespace-nowrap ${getAnimationClass()}`}>
         {multipliedItems.map((item, idx) => (
-          // Usamos idx como key aqui porque os itens são clones
           <div key={idx} className="mx-4 flex items-center">
             {item}
           </div>

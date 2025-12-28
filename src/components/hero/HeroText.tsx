@@ -1,5 +1,6 @@
 import { Github, Linkedin } from 'lucide-react';
 import DecryptedText from '../ui/DecryptedText';
+import MagneticWrapper from '../ui/MagneticWrapper';
 
 interface HeroTextProps {
   typedText: string;
@@ -59,6 +60,7 @@ export const HeroText = ({ typedText }: HeroTextProps) => {
 
         {/* Social Icons */}
         <div className="flex gap-6 text-text-primary items-center">
+          <MagneticWrapper strength={0.3}>
           <a 
             href="https://github.com/mulinco" 
             target="_blank" 
@@ -68,6 +70,8 @@ export const HeroText = ({ typedText }: HeroTextProps) => {
           >
             <Github size={28} />
           </a>
+          </MagneticWrapper>
+          <MagneticWrapper strength={0.3}>
           <a 
             href="https://www.linkedin.com/in/mariaclararodrigues3113/" 
             target="_blank" 
@@ -77,6 +81,7 @@ export const HeroText = ({ typedText }: HeroTextProps) => {
           >
             <Linkedin size={28} />
           </a>
+          </MagneticWrapper>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { Code, Database, Layout, Sparkles, X, Bot, GitBranch } from 'lucide-reac
 import { CVCard } from '../cv/CVCard';
 import { CVModal } from '../cv/CVModal';
 import InfiniteScroll from '../ui/InfiniteScroll'; 
+import SpotlightCard from '../ui/SpotlightCard'; 
 
 interface Skill {
   name: string;
@@ -31,6 +32,7 @@ export const About = () => {
     return age;
   }, []);
 
+  // 1. HARD SKILLS (Ficam no Grid com Spotlight)
   const skills: Skill[] = [
     { 
       name: 'Python', 
@@ -82,16 +84,25 @@ export const About = () => {
     },
   ];
 
-  // 2. PREPARANDO OS ITENS PARA O SCROLL
-  // Transformamos a lista de skills em componentes visuais bonitos (chips)
-  const scrollItems = skills.map((skill, index) => (
+  // 2. ARSENAL & FERRAMENTAS (Ficam no Scroll Infinito)
+  // Isso evita repetição e mostra profundidade técnica
+  const tools = [
+    "VS Code", "Pandas", "Streamlit", "Figma", 
+    "PostgreSQL", "MySQL", "Linux", "Vercel", "Trello", "Scrum",
+    "BioPython", "Vite", "TypeScript", "Windsurf", 
+    "Matplotlib", "Seaborn", "Plotly",
+    "ESLint", "Prettier", "Markdown", "React Bits" 
+  ];
+
+  // Preparando os itens do Scroll (Visual "Tech Tag")
+  const scrollItems = tools.map((tool, index) => (
     <div 
       key={index}
-      className="flex items-center gap-3 px-6 py-3 bg-bg-secondary/50 backdrop-blur-md border border-accent/20 rounded-xl kawaii:rounded-full shadow-sm hover:border-accent/50 transition-colors cursor-default"
+      className="flex items-center gap-2 px-4 py-2 bg-bg-secondary/30 border border-accent/10 rounded-md whitespace-nowrap backdrop-blur-sm"
     >
-      <span className="text-accent">{skill.icon}</span>
-      <span className="font-code font-bold text-text-primary uppercase tracking-wider text-sm">
-        {skill.name}
+      <span className="text-accent text-[8px] animate-pulse">●</span>
+      <span className="font-code text-text-secondary text-sm font-bold uppercase tracking-wider opacity-80">
+        {tool}
       </span>
     </div>
   ));
@@ -137,27 +148,35 @@ export const About = () => {
             </div>
           </div>
 
-          {/* Lado Direito: Grid de Skills (INTERATIVO) */}
+          {/* Lado Direito: Grid de Skills (COM SPOTLIGHT) */}
           <div className="grid grid-cols-2 gap-4">
             {skills.map((skill, index) => (
               <div 
                 key={index}
                 onClick={() => setSelectedSkill(skill)}
-                className="group p-6 border border-accent/20 hover:border-accent bg-bg-secondary hover:-translate-y-1 cursor-pointer transition-all duration-500 rounded-lg kawaii:rounded-3xl kawaii:shadow-sm flex flex-col gap-3 relative overflow-hidden"
+                className="h-full group cursor-pointer"
               >
-                <div className="text-accent mb-2 group-hover:scale-110 transition-transform duration-300">
-                  {skill.icon}
-                </div>
-                
-                <h3 className="font-bold font-code text-text-primary transition-colors duration-500">{skill.name}</h3>
-                
-                <p className="text-[10px] text-accent opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 uppercase tracking-widest">
-                  Ver +
-                </p>
+                {/* 3. APLICAÇÃO DO SPOTLIGHT CARD AQUI */}
+                <SpotlightCard 
+                   className="h-full hover:-translate-y-1 transition-transform duration-500 kawaii:rounded-3xl"
+                   spotlightColor="var(--spotlight-color)"
+                >
+                    <div className="p-6 flex flex-col gap-3 h-full relative z-20">
+                        <div className="text-accent mb-2 group-hover:scale-110 transition-transform duration-300">
+                        {skill.icon}
+                        </div>
+                        
+                        <h3 className="font-bold font-code text-text-primary transition-colors duration-500">{skill.name}</h3>
+                        
+                        <p className="text-[10px] text-accent opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 uppercase tracking-widest">
+                        Ver +
+                        </p>
 
-                <div className="w-full bg-bg-primary h-2 mt-auto rounded-full overflow-hidden transition-colors duration-500 border border-accent/10">
-                  <div className={`h-full bg-accent rounded-full transition-all duration-1000 ${skill.percentage}`}></div> 
-                </div>
+                        <div className="w-full bg-bg-primary h-2 mt-auto rounded-full overflow-hidden transition-colors duration-500 border border-accent/10">
+                            <div className={`h-full bg-accent rounded-full transition-all duration-1000 ${skill.percentage}`}></div> 
+                        </div>
+                    </div>
+                </SpotlightCard>
               </div>
             ))}
           </div>
@@ -165,17 +184,33 @@ export const About = () => {
         </div>
       </div>
 
-      {/* 3. AQUI ESTÁ O INFINITE SCROLL (RODAPÉ DA SEÇÃO) */}
-      <div className="mt-20 border-t border-accent/10 pt-8 relative z-10">
+      {/* 4. INFINITE SCROLL (Arsenal & Ferramentas) */}
+      <div className="mt-20 pt-8 relative z-10">
+        
+        {/* CABEÇALHO COM LINHAS LATERAIS (Sem conflito visual) */}
+        {/* Usamos Flexbox para alinhar: Linha - Texto - Linha */}
+        <div className="flex items-center justify-center gap-4 mb-8 opacity-50">
+           {/* Linha Esquerda */}
+           <div className="h-px bg-accent/20 w-12 md:w-32"></div>
+           
+           {/* Texto */}
+           <span className="font-code text-xs text-text-secondary uppercase tracking-[0.3em] whitespace-nowrap">
+              Arsenal & Ferramentas
+           </span>
+           
+           {/* Linha Direita */}
+           <div className="h-px bg-accent/20 w-12 md:w-32"></div>
+        </div>
+
         <InfiniteScroll 
           items={scrollItems} 
           speed="normal" 
           direction="left"
-          className="opacity-80 hover:opacity-100 transition-opacity" 
+          className="opacity-70 hover:opacity-100 transition-opacity" 
         />
       </div>
 
-      {/* Modal de Skills */}
+      {/* Modal de Skills (Mantido igual) */}
       {selectedSkill && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="relative bg-bg-secondary w-full max-w-lg rounded-xl kawaii:rounded-3xl border-2 border-accent p-8 shadow-2xl animate-in zoom-in-95 duration-200">

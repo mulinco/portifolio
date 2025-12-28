@@ -17,6 +17,7 @@
     --accent-hover: #ff4d6d;
     --scroll-track: #0f0505;
     --scroll-thumb: #520815;
+    --spotlight-color: rgba(255, 255, 255, 0.15);
 
     /* VARIÁVEIS DE FONTE GOTH */
     --font-heading: 'Inter', serif;
@@ -49,6 +50,8 @@
     
     --scroll-track: #F1DFDD;
     --scroll-thumb: #EEAAC3; /* Metallic Pink */
+
+    --spotlight-color: rgba(255, 105, 180, 0.35);
 
     /* VARIÁVEIS DE FONTE KAWAII */
     --font-heading: 'Mochiy Pop One', sans-serif;

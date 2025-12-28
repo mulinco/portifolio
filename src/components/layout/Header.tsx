@@ -4,6 +4,7 @@ import { Logo } from './Logo';
 import { Navigation } from './Navigation';
 import { SocialLinks } from '../ui/SocialLinks'; 
 import { ThemeToggle } from '../ThemeToggle'; 
+import MagneticWrapper from '../ui/MagneticWrapper';
 
 interface HeaderProps {
   isKawaii: boolean;
@@ -25,10 +26,13 @@ export const Header = ({ isKawaii, toggleTheme }: HeaderProps) => {
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
         
         {/* Logo */}
+        
+        <MagneticWrapper>
         <a href="#" className="hover:opacity-80 transition-opacity">
           <Logo />
         </a>
-        
+        </MagneticWrapper>
+
         <div className="flex items-center gap-6">
           <div className="hidden md:block">
             <Navigation links={links} />
@@ -38,8 +42,9 @@ export const Header = ({ isKawaii, toggleTheme }: HeaderProps) => {
             <SocialLinks />
           </div>
 
-          
+          <MagneticWrapper>
           <ThemeToggle isKawaii={isKawaii} onToggle={toggleTheme} />
+          </MagneticWrapper>
           
           <button 
             className="md:hidden text-2xl text-goth-pink kawaii:text-pink-500 transition-colors z-50 relative" 
