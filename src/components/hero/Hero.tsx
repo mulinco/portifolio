@@ -11,7 +11,7 @@ export const Hero = () => {
   const { fact, currentIcon, triggerSecret } = useEasterEgg();
 
   return (
-    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-4 relative overflow-hidden font-sans">
+    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 pt-28 pb-12 md:p-4 relative overflow-hidden font-sans">
       
       {/* 2. Background Decorativo */}
       <HeroBackground />
