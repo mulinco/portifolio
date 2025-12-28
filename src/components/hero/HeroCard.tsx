@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Skull, Heart, MessageCircle } from 'lucide-react';
-import MagneticWrapper from '../ui/MagneticWrapper';
+
 
 interface HeroCardProps {
   fact: string | null;

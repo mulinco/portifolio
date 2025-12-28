@@ -51,12 +51,15 @@ export const HeroText = ({ typedText }: HeroTextProps) => {
       <div className="flex items-center gap-8 pt-6 font-code">
         
         {/* BOTÃO PRINCIPAL (Código Limpo) */}
+        <MagneticWrapper>
         <a 
           href="#projetos"
           className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold tracking-wider transition-all duration-300 bg-accent text-white rounded-sm hover:bg-accent-hover hover:shadow-[0_0_20px_rgba(210,4,45,0.4)] hover:-translate-y-1 kawaii:bg-pink-400 kawaii:text-white kawaii:rounded-full kawaii:shadow-[0_4px_10px_rgba(244,114,182,0.4)] kawaii:hover:bg-pink-500 kawaii:hover:shadow-[0_6px_15px_rgba(244,114,182,0.6)] kawaii:hover:scale-105 kawaii:active:scale-95"
         >
           VER PROJETOS
         </a>
+        </MagneticWrapper>
+
 
         {/* Social Icons */}
         <div className="flex gap-6 text-text-primary items-center">

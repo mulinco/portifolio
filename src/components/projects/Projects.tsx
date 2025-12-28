@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Github, ExternalLink, Folder, X, Code2, Terminal } from 'lucide-react';
+import TiltCard from '../ui/TiltCard';          // ✅ Importado
+import MagneticWrapper from '../ui/MagneticWrapper'; // ✅ Importado
 
 interface Project {
   title: string;
@@ -80,63 +82,56 @@ export const Projects = () => {
       {/* Grid de Projetos */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
-          <div 
-            key={index}
-            onClick={() => setSelectedProject(project)}
-            className="
-              group relative cursor-pointer 
-              bg-bg-secondary border border-accent/20 
-              
-              /* PADRONIZAÇÃO DE CARD */
-              rounded-xl kawaii:rounded-[2rem]
-              p-6 
-              
-              /* SOMBRAS E INTERAÇÃO PADRONIZADAS */
-              hover:border-accent hover:-translate-y-2 transition-all duration-300
-              shadow-lg hover:shadow-[0_0_20px_rgba(210,4,45,0.2)] 
-              kawaii:hover:shadow-md
-            "
-          >
-            {/* Ícone de Pasta/Tipo no Topo */}
-            <div className="flex justify-between items-start mb-6">
-              <div className="p-3 bg-bg-primary rounded-lg text-accent group-hover:scale-110 transition-transform">
-                {project.type === 'Data Science' ? <Terminal size={24} /> : 
-                 project.type === 'Backend' ? <Code2 size={24} /> : 
-                 <Folder size={24} />}
+          // 1. Envolvemos o Card no TiltCard para o efeito 3D
+          <TiltCard key={index} className="h-full">
+            <div 
+              onClick={() => setSelectedProject(project)}
+              className="
+                h-full group relative cursor-pointer 
+                bg-bg-secondary border border-accent/20 
+                rounded-xl kawaii:rounded-[2rem] p-6 
+                hover:border-accent transition-all duration-300
+                shadow-lg hover:shadow-[0_0_20px_rgba(210,4,45,0.2)] 
+                kawaii:hover:shadow-md flex flex-col
+              "
+            >
+              {/* Ícone de Pasta/Tipo no Topo */}
+              <div className="flex justify-between items-start mb-6" style={{ transform: "translateZ(20px)" }}>
+                <div className="p-3 bg-bg-primary rounded-lg text-accent group-hover:scale-110 transition-transform shadow-inner">
+                  {project.type === 'Data Science' ? <Terminal size={24} /> : 
+                   project.type === 'Backend' ? <Code2 size={24} /> : 
+                   <Folder size={24} />}
+                </div>
+                
+                {/* Ícone Github Pequeno (Sem Magnet aqui pra não poluir o Tilt) */}
+                <div className="p-2 hover:bg-bg-primary rounded-full transition-colors text-text-secondary hover:text-accent">
+                    <Github size={20} />
+                </div>
               </div>
-              <div className="flex gap-2">
-                 <a 
-                   href={project.github} 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   onClick={(e) => e.stopPropagation()} 
-                   className="text-text-secondary hover:text-accent transition-colors hover:scale-110"
-                 >
-                   <Github size={20} />
-                 </a>
+
+              {/* Conteúdo do Card (Com profundidade Z) */}
+              <div style={{ transform: "translateZ(30px)" }}>
+                  <h3 className="text-xl font-bold text-text-primary mb-2 group-hover:text-accent transition-colors font-heading">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-text-secondary font-sans leading-relaxed mb-4">
+                    {project.shortDescription}
+                  </p>
+              </div>
+
+              {/* Tags (Preview) */}
+              <div className="flex flex-wrap gap-2 mt-auto" style={{ transform: "translateZ(20px)" }}>
+                {project.techs.slice(0, 3).map((tech, i) => (
+                  <span key={i} className="text-xs font-code text-accent font-bold bg-accent/5 px-2 py-1 rounded border border-transparent group-hover:border-accent/20">
+                    {tech}
+                  </span>
+                ))}
+                {project.techs.length > 3 && (
+                  <span className="text-xs font-code text-text-muted px-2 py-1">+ {project.techs.length - 3}</span>
+                )}
               </div>
             </div>
-
-            {/* Conteúdo do Card */}
-            <h3 className="text-xl font-bold text-text-primary mb-2 group-hover:text-accent transition-colors font-heading">
-              {project.title}
-            </h3>
-            <p className="text-sm text-text-secondary font-sans leading-relaxed mb-4">
-              {project.shortDescription}
-            </p>
-
-            {/* Tags (Preview) */}
-            <div className="flex flex-wrap gap-2 mt-auto">
-              {project.techs.slice(0, 3).map((tech, i) => (
-                <span key={i} className="text-xs font-code text-accent font-bold bg-accent/5 px-2 py-1 rounded border border-transparent group-hover:border-accent/20">
-                  {tech}
-                </span>
-              ))}
-              {project.techs.length > 3 && (
-                <span className="text-xs font-code text-text-muted px-2 py-1">+ {project.techs.length - 3}</span>
-              )}
-            </div>
-          </div>
+          </TiltCard>
         ))}
       </div>
 
@@ -144,21 +139,18 @@ export const Projects = () => {
       {selectedProject && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
-          onClick={() => setSelectedProject(null)} // Fecha ao clicar fora
+          onClick={() => setSelectedProject(null)}
         >
           <div 
             className="
               relative bg-bg-secondary w-full max-w-2xl 
               border border-accent shadow-2xl overflow-hidden flex flex-col max-h-[90vh]
               animate-in zoom-in-95 duration-200
-              
-              /* PADRONIZAÇÃO DO MODAL */
               rounded-xl kawaii:rounded-[2.5rem]
             "
             onClick={(e) => e.stopPropagation()}
           >
             
-            {/* Botão Fechar */}
             <button 
               onClick={() => setSelectedProject(null)}
               className="absolute top-4 right-4 z-10 p-2 bg-bg-primary/50 rounded-full text-text-primary hover:text-accent hover:bg-bg-primary transition-all backdrop-blur-sm"
@@ -180,7 +172,6 @@ export const Projects = () => {
                <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary to-transparent opacity-90"></div>
             </div>
 
-            {/* Conteúdo do Modal */}
             <div className="p-6 md:p-8 overflow-y-auto">
               <div className="flex justify-between items-center mb-2">
                  <span className="text-accent font-code text-sm uppercase tracking-widest border border-accent/30 px-3 py-1 rounded-full">
@@ -198,7 +189,6 @@ export const Projects = () => {
                 </p>
               </div>
 
-              {/* Stack Tecnológico */}
               <div className="mb-8">
                 <h4 className="text-sm font-bold text-text-primary uppercase mb-3 flex items-center gap-2 font-code">
                   <Terminal size={16} className="text-accent"/> Stack Tecnológico
@@ -215,46 +205,43 @@ export const Projects = () => {
                 </div>
               </div>
 
-              {/* BOTÕES DE AÇÃO PADRONIZADOS */}
+              {/* 2. BOTÕES DE AÇÃO COM MAGNETISMO */}
               <div className="flex gap-4 pt-4 border-t border-accent/10">
-                <a 
-                  href={selectedProject.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    flex-1 flex items-center justify-center gap-2 py-3 rounded-sm font-bold tracking-wide uppercase transition-all
-                    
-                    /* Estilo Secundário (Outline) */
-                    bg-bg-primary border border-accent text-text-primary 
-                    hover:bg-accent hover:text-white
-                    
-                    /* Padronização Kawaii */
-                    kawaii:rounded-full
-                  "
-                >
-                  <Github size={20} />
-                  Ver Código
-                </a>
                 
-                {selectedProject.demo && (
+                <MagneticWrapper className="flex-1" strength={0.3}>
                   <a 
-                    href={selectedProject.demo}
+                    href={selectedProject.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
-                      flex-1 flex items-center justify-center gap-2 py-3 rounded-sm font-bold tracking-wide uppercase transition-all
-                      
-                      /* Estilo Primário (Solid) */
-                      bg-accent text-white shadow-lg shadow-accent/20
-                      hover:bg-accent-hover hover:shadow-accent/40
-                      
-                      /* Padronização Kawaii */
-                      kawaii:rounded-full kawaii:hover:scale-105
+                      flex items-center justify-center gap-2 py-3 rounded-sm font-bold tracking-wide uppercase transition-all
+                      bg-bg-primary border border-accent text-text-primary 
+                      hover:bg-accent hover:text-white
+                      kawaii:rounded-full w-full
                     "
                   >
-                    <ExternalLink size={20} />
-                    Live Demo
+                    <Github size={20} />
+                    Ver Código
                   </a>
+                </MagneticWrapper>
+                
+                {selectedProject.demo && (
+                  <MagneticWrapper className="flex-1" strength={0.3}>
+                    <a 
+                      href={selectedProject.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        flex items-center justify-center gap-2 py-3 rounded-sm font-bold tracking-wide uppercase transition-all
+                        bg-accent text-white shadow-lg shadow-accent/20
+                        hover:bg-accent-hover hover:shadow-accent/40
+                        kawaii:rounded-full w-full
+                      "
+                    >
+                      <ExternalLink size={20} />
+                      Live Demo
+                    </a>
+                  </MagneticWrapper>
                 )}
               </div>
             </div>
