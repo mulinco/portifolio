@@ -8,7 +8,8 @@
 > **"De células a códigos."**
 > Um portfólio interativo que une a precisão analítica da Bioinformática com a criatividade do Frontend Development.
 
-🌐 **[Acesse o Projeto Online](mulincodev.vercel.app)**
+[![Deploy na Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://mulincodev.vercel.app)
+
 
 ---
 
