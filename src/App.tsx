@@ -2,45 +2,51 @@ import { useState } from 'react';
 import { Header } from './components/layout/Header';
 import { Hero } from './components/hero/Hero';
 import { About } from './components/about/About';
+import { LifeTimeline } from './components/LifeTimeline'; // IMPORT NOVO
 import { Projects } from './components/projects/Projects';
 import { PetSlider } from './components/pets/PetSlider';
 import { Footer } from './components/layout/Footer';
 import { ScrollProgress } from './components/ui/ScrollProgress';
+import { WelcomeScreen } from './components/ui/WelcomeScreen';
 
 function App() {
-  const [isKawaii, setIsKawaii] = useState(false);
+  const [isKawaii, setIsKawaii] = useState(() => {
+    // Mantendo sua lógica de persistência do tema
+    const savedTheme = localStorage.getItem('app-theme');
+    return savedTheme === 'kawaii';
+  });
 
   const toggleTheme = () => {
     setIsKawaii(!isKawaii);
-    if (!isKawaii) {
-      document.documentElement.classList.add('kawaii');
-    } else {
-      document.documentElement.classList.remove('kawaii');
-    }
+    // Nota: O useEffect que já existe no seu código original cuida da classe no html/body
   };
 
   return (
     <main className="bg-goth-bg min-h-screen text-goth-text font-sans selection:bg-goth-pink selection:text-black transition-colors duration-500 kawaii:bg-pink-50">
+      <WelcomeScreen isKawaii={isKawaii} />
       <ScrollProgress />
       <Header isKawaii={isKawaii} toggleTheme={toggleTheme} />
       
-      {/* O Hero geralmente fica no topo, então o link do Logo (href="#") já cuida dele */}
       <Hero />
       
-      {/* 1. SKILLS -> Aponta para o componente ABOUT */}
-      {/* scroll-mt-28 cria um espaço para o header não cobrir o título */}
+      {/* SEÇÃO 1: ABOUT (Bio + Skills + Ferramentas) */}
       <section id="skills" className="scroll-mt-28">
-        <About />
+        <About isKawaii={isKawaii} />
+      </section>
+
+      {/* SEÇÃO 2: TIMELINE (Agora fora e abaixo do About) */}
+      {/* Não precisa de ID de scroll se não for item de menu, mas serve de transição */}
+      <section className="container mx-auto px-4 py-10">
+         <LifeTimeline isKawaii={isKawaii} />
       </section>
       
-      {/* 2. PROJETOS -> Aponta para o componente PROJECTS */}
+      {/* SEÇÃO 3: PROJETOS */}
       <section id="projetos" className="scroll-mt-28">
         <Projects />
       </section>
       
       <PetSlider isKawaii={isKawaii} />
       
-      {/* 3. CONTATO -> Aponta para o FOOTER */}
       <section id="contato" className="scroll-mt-28">
         <Footer />
       </section>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Github, ExternalLink, Folder, X, Code2, Terminal } from 'lucide-react';
-import TiltCard from '../ui/TiltCard';          // ✅ Importado
-import MagneticWrapper from '../ui/MagneticWrapper'; // ✅ Importado
+import TiltCard from '../ui/TiltCard';          
+import MagneticWrapper from '../ui/MagneticWrapper'; 
 
 interface Project {
   title: string;
@@ -62,6 +62,17 @@ export const Projects = () => {
       techs: ["React", "Vite", "Tailwind", "Lucide React", "CSS Variables"],
       image: "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=800&auto=format&fit=crop", 
       github: "https://github.com/mulinco/portfolio"
+    },
+    {
+      title: "BioLinks Agatha Viana",
+      type: "Frontend",
+      shortDescription: "Hub de links mobile-first com animações GSAP e Next.js.",
+      longDescription: "Uma landing page de alta performance desenvolvida para superar as limitações de agregadores comuns. Foca na identidade visual da cliente com um tema 'Modern Retro', utilizando animações fluídas (GSAP), otimização de imagem e layout 100% responsivo (No-Scroll).",
+      techs: ["Next.js 14", "TypeScript", "Tailwind CSS", "GSAP", "React Bits"],
+
+      image: "/preview.png", 
+      github: "https://github.com/mulinco/linktree-agatha",
+      demo: "https://linktree-agatha.vercel.app"
     }
   ];
 

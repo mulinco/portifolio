@@ -6,6 +6,8 @@ import { CVModal } from '../cv/CVModal';
 import InfiniteScroll from '../ui/InfiniteScroll'; 
 import SpotlightCard from '../ui/SpotlightCard'; 
 
+// REMOVIDO: import { TimelineSection } from './TimelineSection'; 
+
 interface Skill {
   name: string;
   icon: JSX.Element;
@@ -15,7 +17,11 @@ interface Skill {
   techs: string[];
 }
 
-export const About = () => {
+interface AboutProps {
+  isKawaii: boolean;
+}
+
+export const About = ({ isKawaii }: AboutProps) => {
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
   const [isCVOpen, setIsCVOpen] = useState(false);
 
@@ -32,7 +38,6 @@ export const About = () => {
     return age;
   }, []);
 
-  // 1. HARD SKILLS (Ficam no Grid com Spotlight)
   const skills: Skill[] = [
     { 
       name: 'Python', 
@@ -84,8 +89,6 @@ export const About = () => {
     },
   ];
 
-  // 2. ARSENAL & FERRAMENTAS (Ficam no Scroll Infinito)
-  // Isso evita repetição e mostra profundidade técnica
   const tools = [
     "VS Code", "Pandas", "Streamlit", "Figma", 
     "PostgreSQL", "MySQL", "Linux", "Vercel", "Trello", "Scrum",
@@ -94,7 +97,6 @@ export const About = () => {
     "ESLint", "Prettier", "Markdown", "React Bits" 
   ];
 
-  // Preparando os itens do Scroll (Visual "Tech Tag")
   const scrollItems = tools.map((tool, index) => (
     <div 
       key={index}
@@ -121,7 +123,6 @@ export const About = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start"> 
           
-          {/* Lado Esquerdo: Texto + CV CARD */}
           <div className="space-y-8">
             <div className="space-y-6">
                 <h2 className="text-4xl md:text-5xl font-display kawaii:font-cute text-accent transition-colors duration-500">
@@ -148,7 +149,6 @@ export const About = () => {
             </div>
           </div>
 
-          {/* Lado Direito: Grid de Skills (COM SPOTLIGHT) */}
           <div className="grid grid-cols-2 gap-4">
             {skills.map((skill, index) => (
               <div 
@@ -156,7 +156,6 @@ export const About = () => {
                 onClick={() => setSelectedSkill(skill)}
                 className="h-full group cursor-pointer"
               >
-                {/* 3. APLICAÇÃO DO SPOTLIGHT CARD AQUI */}
                 <SpotlightCard 
                    className="h-full hover:-translate-y-1 transition-transform duration-500 kawaii:rounded-3xl"
                    spotlightColor="var(--spotlight-color)"
@@ -180,25 +179,19 @@ export const About = () => {
               </div>
             ))}
           </div>
-
         </div>
+
+        {/* REMOVIDO: A Timeline estava aqui, agora foi para o App.tsx */}
+
       </div>
 
-      {/* 4. INFINITE SCROLL (Arsenal & Ferramentas) */}
+      {/* Seção de Ferramentas (Infinite Scroll) - Mantido aqui pois faz parte de Skills/About */}
       <div className="mt-20 pt-8 relative z-10">
-        
-        {/* CABEÇALHO COM LINHAS LATERAIS (Sem conflito visual) */}
-        {/* Usamos Flexbox para alinhar: Linha - Texto - Linha */}
         <div className="flex items-center justify-center gap-4 mb-8 opacity-50">
-           {/* Linha Esquerda */}
            <div className="h-px bg-accent/20 w-12 md:w-32"></div>
-           
-           {/* Texto */}
            <span className="font-code text-xs text-text-secondary uppercase tracking-[0.3em] whitespace-nowrap">
-              Arsenal & Ferramentas
+             Arsenal & Ferramentas
            </span>
-           
-           {/* Linha Direita */}
            <div className="h-px bg-accent/20 w-12 md:w-32"></div>
         </div>
 
@@ -210,57 +203,40 @@ export const About = () => {
         />
       </div>
 
-      {/* Modal de Skills (Mantido igual) */}
       {selectedSkill && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="relative bg-bg-secondary w-full max-w-lg rounded-xl kawaii:rounded-3xl border-2 border-accent p-8 shadow-2xl animate-in zoom-in-95 duration-200">
-            
             <button 
               onClick={() => setSelectedSkill(null)}
               className="absolute top-4 right-4 text-text-secondary hover:text-accent transition-colors"
             >
               <X size={28} />
             </button>
-
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-4 border-b border-accent/20 pb-4">
-                <div className="p-3 bg-accent/10 rounded-lg text-accent">
-                  {selectedSkill.icon}
-                </div>
+                <div className="p-3 bg-accent/10 rounded-lg text-accent">{selectedSkill.icon}</div>
                 <div>
                   <h3 className="font-metal kawaii:font-cute text-3xl text-text-primary">{selectedSkill.name}</h3>
                   <span className="text-sm font-code text-accent uppercase tracking-wider">{selectedSkill.level}</span>
                 </div>
               </div>
-
-              <p className="text-text-secondary leading-relaxed font-sans">
-                {selectedSkill.description}
-              </p>
-
+              <p className="text-text-secondary leading-relaxed font-sans">{selectedSkill.description}</p>
               <div>
                 <h4 className="text-accent font-bold uppercase text-xs mb-3 tracking-widest">Domínio Técnico</h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedSkill.techs.map((tech, idx) => (
-                    <span 
-                      key={idx} 
-                      className="px-3 py-1 bg-bg-primary border border-accent/30 rounded-full text-xs text-text-primary hover:border-accent transition-colors cursor-default"
-                    >
+                    <span key={idx} className="px-3 py-1 bg-bg-primary border border-accent/30 rounded-full text-xs text-text-primary hover:border-accent transition-colors cursor-default">
                       {tech}
                     </span>
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       )}
 
-      {/* MODAL DO CURRÍCULO */}
-      <CVModal 
-        isOpen={isCVOpen} 
-        onClose={() => setIsCVOpen(false)} 
-      />
+      <CVModal isOpen={isCVOpen} onClose={() => setIsCVOpen(false)} />
 
     </section>
   );
