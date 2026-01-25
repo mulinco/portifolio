@@ -1,3 +1,4 @@
+// src/components/Iridescence.tsx
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 import { useEffect, useRef } from 'react';
 
@@ -26,6 +27,7 @@ void main() {
   uv += (uMouse - vec2(0.5)) * uAmplitude;
   float d = -uTime * 0.5 * uSpeed;
   float a = 0.0;
+  // Voltando para 8.0 para os detalhes ficarem finos e complexos
   for (float i = 0.0; i < 8.0; ++i) {
     a += cos(i - d - a * uv.x);
     d += sin(uv.y * i + a);
@@ -50,6 +52,8 @@ export const Iridescence = ({ color, speed = 1.0, amplitude = 0.1 }: Iridescence
   useEffect(() => {
     if (!ctnDom.current) return;
     const ctn = ctnDom.current;
+    
+    // Restaurando antialias e removendo a trava de DPR
     const renderer = new Renderer({ alpha: true, antialias: true });
     const gl = renderer.gl;
 
@@ -94,10 +98,8 @@ export const Iridescence = ({ color, speed = 1.0, amplitude = 0.1 }: Iridescence
       if (ctn.contains(gl.canvas)) ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 🚀 AQUI ESTÁ O SEGREDO: Atualiza a cor sem reiniciar nada!
   useEffect(() => {
     if (programRef.current) {
       programRef.current.uniforms.uColor.value.set(color[0], color[1], color[2]);

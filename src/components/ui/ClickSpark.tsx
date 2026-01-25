@@ -17,7 +17,7 @@ interface ClickSparkProps {
 }
 
 export const ClickSpark = ({
-  sparkColor = '#D86487', 
+  sparkColor = '#00ff37', 
   sparkSize = 10,
   sparkRadius = 15,
   sparkCount = 12, // Aumentei um pouco para ficar mais visível

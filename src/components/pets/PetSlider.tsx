@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { X, PawPrint, Database, Heart, Shield, Sparkles } from 'lucide-react'; 
 import MagneticWrapper from '../ui/MagneticWrapper'; 
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { GenericCard } from '../ui/GenericCard'; 
 
 interface Pet {
   name: string;
@@ -43,14 +44,11 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
 
   useEffect(() => {
     const checkTheme = () => {
-      const hasKawaiiClass = document.body.classList.contains('kawaii');
-      setCurrentIsKawaii(hasKawaiiClass);
+      setCurrentIsKawaii(document.body.classList.contains('kawaii'));
     };
-
     const observer = new MutationObserver(() => checkTheme());
     observer.observe(document.body, { attributes: true });
     checkTheme();
-
     return () => observer.disconnect();
   }, []);
 
@@ -71,7 +69,7 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
       kawaiiTitle: "Estrela Vênus 🌸",
       image: "venuss.jpg",
       birthDate: "2020-01-13", 
-      gothDesc: "Analista de comportamento. Exige tributos em afeto e realiza auditoria constante na zona de alimentação (cozinha).",
+      gothDesc: "Analista de comportamento. Exige tributos em afeto e realiza auditoria constante na cozinha.",
       kawaiiDesc: "A rainha da casa! Adora fazer um drama por petisco e é a inteligência por trás do caos.",
       skills: ["Auditoria", "Drama Nível 100", "Salto Ornamental", "Lady Delicadeza", "Odeia o Jupi", "Amor incondicional"]
     }
@@ -89,13 +87,15 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
     return years === 0 ? `${months} meses` : years === 1 ? "1 ano" : `${years} anos`;
   };
 
+  if (!isStarted) return null;
+
   return (
-    <section className={`py-24 relative overflow-hidden transition-colors duration-500 ${currentIsKawaii ? 'bg-transparent' : 'bg-transparent'}`}>
+    <section className="py-24 relative overflow-hidden font-sans">
       
-      {/* 🚀 CABEÇALHO COM TODOS OS ÍCONES UTILIZADOS */}
+      {/* CABEÇALHO */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
-        whileInView={isStarted ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="text-center mb-20 space-y-4"
       >
@@ -118,20 +118,19 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
             )}
         </div>
         
-        <h2 className={`text-4xl md:text-6xl font-bold uppercase tracking-tight ${currentIsKawaii ? 'text-[#D86487] font-cute' : 'text-accent font-bold'}`}>
+        <h2 className={`text-4xl md:text-6xl font-bold uppercase tracking-tight ${currentIsKawaii ? 'text-[#D86487] font-cute' : 'text-accent'}`}>
           {currentIsKawaii ? 'Meus Filhos' : 'BIO_DATA: CANINE_LOG'}
         </h2>
-        
         <p className={`font-code text-sm md:text-lg ${currentIsKawaii ? 'text-[#76172C] italic' : 'text-text-secondary uppercase tracking-[0.4em]'}`}>
-          {currentIsKawaii ? 'Conheça o Júpiter e a Vênus, os donos do meu coração! 🐾' : '> Acessando banco de dados biológicos... [OK]'}
+          {currentIsKawaii ? 'Júpiter e Vênus, os donos do meu coração! 🐾' : '> Acessando banco de dados biológicos... [OK]'}
         </p>
       </motion.div>
 
-      {/* GRID CENTRALIZADO */}
+      {/* GRID DOS PETS */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
-        whileInView={isStarted ? "visible" : "hidden"}
+        whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         className="flex flex-wrap justify-center gap-12 px-6 max-w-7xl mx-auto"
       >
@@ -139,16 +138,14 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
           <motion.div 
             key={index}
             variants={petCardVariants}
-            className="cursor-target w-full max-w-[400px] cursor-pointer"
-            onClick={() => setSelectedPet(pet)} 
+            className="w-full max-w-[420px] h-full"
           >
-            <div className={`
-              h-full group relative p-12 transition-all duration-500 border-2
-              ${currentIsKawaii 
-                ? 'bg-white border-[#EEAAC3] rounded-[4rem] shadow-[12px_12px_0px_#EEAAC3] hover:shadow-[18px_18px_0px_#D86487]' 
-                : 'bg-bg-secondary/40 backdrop-blur-md border-accent/20 rounded-[3rem] hover:border-accent hover:shadow-[0_0_40px_rgba(210,4,45,0.2)]'}
-            `}>
-              <div className="flex flex-col items-center">
+            <GenericCard 
+              isKawaii={currentIsKawaii} 
+              onClick={() => setSelectedPet(pet)}
+              className="h-full"
+            >
+              <div className="flex flex-col items-center py-4 h-full group">
                 <MagneticWrapper strength={0.15}>
                   <div className="w-44 h-44 mb-8 relative">
                     <img 
@@ -159,8 +156,8 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
                   </div>
                 </MagneticWrapper>
 
-                <div className="text-center">
-                  <h3 className={`text-3xl font-bold mb-2 ${currentIsKawaii ? 'text-[#4A202A] font-cute' : 'text-text-primary'}`}>
+                <div className="text-center mt-auto">
+                  <h3 className={`text-3xl font-bold mb-2 ${currentIsKawaii ? 'text-[#4A202A] font-cute' : 'text-text-primary font-code'}`}>
                     {pet.name}
                   </h3>
                   <p className={`text-xs uppercase tracking-widest font-black ${currentIsKawaii ? 'text-[#D86487]' : 'text-accent opacity-80'}`}>
@@ -168,23 +165,23 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
                   </p>
                 </div>
               </div>
-            </div>
+            </GenericCard>
           </motion.div>
         ))}
       </motion.div>
           
-      {/* MODAL PERSONALIZADO */}
+      {/* MODAL */}
       <AnimatePresence>
         {selectedPet && (
-          <div className="cursor-target fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md" onClick={() => setSelectedPet(null)}>
+          <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md" onClick={() => setSelectedPet(null)}>
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className={`relative w-full max-w-lg p-10 shadow-2xl border-2 ${currentIsKawaii ? 'bg-white rounded-[3.5rem] border-[#EEAAC3]' : 'bg-bg-secondary rounded-[2.5rem] border-accent'}`}
+              className={`relative w-full max-w-lg p-10 shadow-2xl border-2 ${currentIsKawaii ? 'bg-white rounded-[3.5rem] border-[#EEAAC3]' : 'bg-bg-secondary rounded-none border-accent'}`}
               onClick={(e) => e.stopPropagation()}
             >
-              <button onClick={() => setSelectedPet(null)} className="cursor-target absolute top-8 right-8 text-text-secondary hover:text-accent transition-colors">
+              <button onClick={() => setSelectedPet(null)} className="absolute top-8 right-8 text-text-secondary hover:text-accent transition-colors">
                 <X size={36} />
               </button>
 
@@ -193,17 +190,17 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
                   <img 
                     src={selectedPet.image} 
                     alt={selectedPet.name}
-                    className={`cursor-target w-full h-full object-cover border-4 rounded-full ${currentIsKawaii ? 'border-[#EEAAC3]' : 'border-accent'}`}
+                    className={`w-full h-full object-cover border-4 rounded-full ${currentIsKawaii ? 'border-[#EEAAC3]' : 'border-accent'}`}
                   />
                 </div>
                 
-                <h3 className={`text-4xl font-bold mb-1 ${currentIsKawaii ? 'text-[#4A202A] font-cute' : 'text-accent'}`}>{selectedPet.name}</h3>
+                <h3 className={`text-4xl font-bold mb-1 ${currentIsKawaii ? 'text-[#4A202A] font-cute' : 'text-accent font-code'}`}>{selectedPet.name}</h3>
                 <p className="text-sm uppercase tracking-widest text-text-secondary mb-8 font-code">{currentIsKawaii ? 'Membro da Família' : 'SUBJECT_CLASSIFICATION'}</p>
                 
-                <div className={`w-full p-8 space-y-6 ${currentIsKawaii ? 'bg-pink-50/50 rounded-[2.5rem]' : 'bg-black/40 rounded-[2rem]'}`}>
+                <div className={`w-full p-8 space-y-6 ${currentIsKawaii ? 'bg-pink-50/50 rounded-[2.5rem]' : 'bg-black/40 rounded-none'}`}>
                   <div className="grid grid-cols-2 gap-6">
                     <div>
-                      <h4 className={`text-xs font-bold uppercase mb-1 tracking-tighter ${currentIsKawaii ? 'text-[#D86487]' : 'text-accent'}`}>{currentIsKawaii ? 'Idade' : 'LIFE_SPAN'}</h4>
+                      <h4 className={`text-xs font-bold uppercase mb-1 ${currentIsKawaii ? 'text-[#D86487]' : 'text-accent'}`}>{currentIsKawaii ? 'Idade' : 'LIFE_SPAN'}</h4>
                       <p className="text-text-primary font-medium">{calculateAge(selectedPet.birthDate)}</p>
                     </div>
                     <div>
@@ -219,7 +216,7 @@ export const PetSlider = ({ isKawaii: propIsKawaii, isStarted }: PetSliderProps)
 
                   <div>
                     <h4 className={`text-xs font-bold uppercase mb-3 ${currentIsKawaii ? 'text-[#D86487]' : 'text-accent'}`}>{currentIsKawaii ? 'Poderes Mágicos' : 'SPECIAL_SKILLS'}</h4>
-                    <div className="cursor-target flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2">
                       {selectedPet.skills.map((skill, idx) => (
                         <span key={idx} className={`px-4 py-1.5 text-[10px] font-bold border ${currentIsKawaii ? 'bg-white border-[#EEAAC3] text-[#D86487] rounded-full' : 'bg-accent/5 border-accent/30 text-accent rounded-lg'}`}>
                           {skill}
